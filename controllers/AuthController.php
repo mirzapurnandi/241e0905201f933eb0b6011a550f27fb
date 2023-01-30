@@ -109,7 +109,7 @@ class AuthController
                 http_response_code($status);
                 $email = $data['email'];
                 $password = md5($data['password']);
-                $expired_time = time() + (1 * 60); // 15 menit
+                $expired_time = time() + (15 * 60); // 15 menit
                 $date   = new DateTimeImmutable();
 
                 //check data
