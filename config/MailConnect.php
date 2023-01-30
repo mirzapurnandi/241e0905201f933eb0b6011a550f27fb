@@ -1,10 +1,10 @@
 <?php
+require_once 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once 'vendor/autoload.php';
 
 class MailConnect
 {
@@ -30,17 +30,17 @@ class MailConnect
         }
     }
 
-    public function sendMail()
+    public function sendMail($data)
     {
         $this->getConnection();
         $this->mail->setFrom('admin@send-mail.test', 'Admin Sending');
-        $this->mail->addAddress('joe@example.net', 'Joe User');
+        $this->mail->addAddress($data['email'], $data['name']);
 
         //Content
         $this->mail->isHTML(true);                                  //Set email format to HTML
-        $this->mail->Subject = 'Percobaan Kirim Pesan';
-        $this->mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-        $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $this->mail->Subject = $data['subject'];
+        $this->mail->Body    = $data['message'];
+        // $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $this->mail->send();
         echo 'Message has been sent';

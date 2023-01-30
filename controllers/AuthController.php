@@ -3,10 +3,10 @@
 require_once 'vendor/autoload.php';
 require_once 'config/Connect.php';
 require_once 'config/MailConnect.php';
+require_once 'config/RedisConnect.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Firebase\JWT\ExpiredException;
 
 class AuthController
 {
@@ -54,14 +54,21 @@ class AuthController
                 $insert = pg_query($this->conn->getConnection(), "INSERT INTO users (name, email, password) VALUES ('" . $data['name'] . "', '" . $data['email'] . "', '" . $password . "') RETURNING *");
                 $message = 'Successfully insert data';
                 $response = pg_fetch_array($insert, 0);
-                $sendMail = new MailConnect();
-                $sending = $sendMail->sendMail();
+                $sendRedis = new RedisConnect();
+                $sendRedis->sendData([
+                    'to' => $response['email'],
+                    'name' => $response['name'],
+                    'subject' => 'Success Register',
+                    'message' => 'Berikut pesan yang ditampilkan'
+                ]);
+                // $sendMail = new MailConnect();
+                // $sending = $sendMail->sendMail();
                 $result = [
                     'name' => $response['name'],
                     'email' => $response['email'],
                     'password' => $response['password'],
                     'status' => $response['status'],
-                    'sendMail' => $sending
+                    //'sendMail' => $sending
                 ];
             }
 
