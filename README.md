@@ -73,3 +73,27 @@ header {
     "Authorization": "Bearer <token>"
 }
 ```
+
+## WORKER
+Ketika menggunakan Redis, maka dibutuhkan file worker untuk menjalankan key di redis yang masih tersimpan. di dalam folder ini sudah disediakan sebuah file worker.php, untuk menjalankannya harus menggunakan command dengan perintah berikut:
+```sh
+php worker.php
+```
+jika ingin melakukannya secara realtime maka di butuhkan aplikasi seperti Supervisor atau systemd yang dapat berjalan di background process yang berkelanjutan.
+
+## HASIL PENGERJAAN
+- proses Register
+  ![register](https://user-images.githubusercontent.com/49771487/215573407-f5bb2c81-53c0-41bc-bf7d-3f0af3c1d359.png)
+
+- proses Login
+  ![login](https://user-images.githubusercontent.com/49771487/215573391-a2cd8985-091d-422d-8991-11330cc279e3.png)
+
+- proses Profile
+  ![profile](https://user-images.githubusercontent.com/49771487/215573399-aa01a8a2-b542-4fff-b867-e10983a38685.png)
+
+- Hasil Queue/Antrian di redis
+  ![redis_queue](https://user-images.githubusercontent.com/49771487/215573403-886beb7e-6dff-4ec9-800f-04cbd217175b.png)
+
+## License
+MIT
+**regard, mirza**
